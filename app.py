@@ -2024,7 +2024,29 @@ def display_chat(chat_id):
 
     messages = get_messages(chat_id)
 
+    # Prevent old duplicate records from appearing twice in the UI.
+    # This is especially useful for chats created with an older version
+    # of the app that could save the first messages more than once.
+    displayed_messages = []
+    seen_exact = set()
+
     for index, m in enumerate(messages):
+
+        role = m.get("role", "")
+        content = (m.get("content", "") or "").strip()
+
+        # Skip an exact duplicate message already displayed.
+        # The key includes role + content, so the same text from different
+        # roles is still displayed correctly.
+        duplicate_key = (role, content)
+
+        if duplicate_key in seen_exact:
+            continue
+
+        seen_exact.add(duplicate_key)
+        displayed_messages.append((index, m))
+
+    for index, m in displayed_messages:
 
         with st.chat_message(
             m["role"]
@@ -2225,11 +2247,26 @@ def chat_tab(chat_id, user):
 
             st.session_state.pending_fallback = question
 
-        save_message(
-            chat_id,
-            "assistant",
-            answer,
+        # Avoid inserting the same answer twice if the same submission
+        # reaches this block more than once in a single run.
+        latest_messages = get_messages(chat_id)
+        latest_assistant = next(
+            (
+                m for m in reversed(latest_messages)
+                if m.get("role") == "assistant"
+            ),
+            None,
         )
+
+        if not latest_assistant or (
+            (latest_assistant.get("content") or "").strip()
+            != answer.strip()
+        ):
+            save_message(
+                chat_id,
+                "assistant",
+                answer,
+            )
 
         update_chat(
             chat_id,
