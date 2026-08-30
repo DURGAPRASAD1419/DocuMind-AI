@@ -124,6 +124,8 @@ It allows users to upload PDF documents, ask questions about their content, rece
                  ┌─────────────────┐
                  │ Answer + Sources│
                  └─────────────────┘
+
+
 📁 Project Structure
 DocuMind-AI/
 │
