@@ -2555,7 +2555,7 @@ def main():
         render_shared_conversation(share_token)
         st.stop()
 
-    if not st.user.is_logged_in:
+    if not getattr(st.user, "is_logged_in", False):
         login_screen()
         st.stop()
 
@@ -2617,9 +2617,11 @@ def main():
         return
 
     # Default Chat screen.
+    # IMPORTANT: chat_tab() already renders the saved chat history.
+    # Do NOT call display_chat() here as well, otherwise every message
+    # appears twice after each Streamlit rerun.
     st.title(f"✦ {chat['title']}")
 
-    display_chat(st.session_state.current_chat_id)
     chat_tab(
         st.session_state.current_chat_id,
         user,
