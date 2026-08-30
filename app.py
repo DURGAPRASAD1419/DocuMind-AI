@@ -44,7 +44,7 @@ except ImportError:
 # ----------------------------------------------------------------
 st.set_page_config(
     page_title="DocuMind AI",
-    page_icon="📚",
+    page_icon="✦",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -480,6 +480,239 @@ st.markdown(
         }
     }
 
+
+    /* ============================================================
+       DOCUMIND AI — CLEAN CHATGPT-STYLE UI
+       ============================================================ */
+
+    /* Remove Streamlit's own chrome from the application view. */
+    [data-testid="stToolbar"],
+    [data-testid="stHeader"],
+    [data-testid="stDecoration"],
+    [data-testid="stStatusWidget"] {
+        display: none !important;
+    }
+
+    /* Keep the app content clean and centered. */
+    .stApp {
+        background: #ffffff !important;
+    }
+
+    [data-testid="stAppViewContainer"] {
+        padding-top: 0 !important;
+        background: #ffffff !important;
+    }
+
+    [data-testid="stMainBlockContainer"] {
+        max-width: 960px !important;
+        padding-top: 18px !important;
+        padding-bottom: 110px !important;
+    }
+
+    /* Sidebar — simple ChatGPT-like gray surface. */
+    section[data-testid="stSidebar"] {
+        background: #f7f7f8 !important;
+        border-right: 1px solid #e5e5e5 !important;
+    }
+
+    section[data-testid="stSidebar"] > div:first-child {
+        padding-top: 12px !important;
+    }
+
+    section[data-testid="stSidebar"] .block-container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    /* New chat button. */
+    section[data-testid="stSidebar"] button {
+        border-radius: 8px !important;
+        color: #202123 !important;
+        font-size: 14px !important;
+    }
+
+    /* Remove colorful emoji-looking glyphs where possible by keeping
+       button typography monochrome. */
+    section[data-testid="stSidebar"] button:hover {
+        background: #ececec !important;
+    }
+
+    /* Recent chat rows — flat and compact. */
+    .history-title {
+        color: #6b6b6b !important;
+        font-size: 11px !important;
+        letter-spacing: .02em !important;
+    }
+
+    .profile-name,
+    .profile-email {
+        color: #202123 !important;
+    }
+
+    /* Account/profile area. */
+    section[data-testid="stSidebar"] .avatar {
+        background: #343541 !important;
+        color: #ffffff !important;
+    }
+
+    /* Main title. */
+    h1, h2, h3 {
+        color: #202123 !important;
+    }
+
+    /* Login page: keep it minimal and centered. */
+    .login-card {
+        max-width: 460px !important;
+        margin: 15vh auto 0 auto !important;
+        text-align: center !important;
+    }
+
+    .login-card h1 {
+        font-size: 34px !important;
+        font-weight: 650 !important;
+        letter-spacing: -0.02em !important;
+        margin-bottom: 8px !important;
+    }
+
+    .login-card p {
+        color: #6b6b6b !important;
+    }
+
+    /* Google login button. */
+    .login-card button {
+        border-radius: 10px !important;
+        min-height: 46px !important;
+        font-size: 15px !important;
+    }
+
+    /* Chat messages: clear separation. */
+    div[data-testid="stChatMessage"] {
+        margin: 8px 0 18px 0 !important;
+        gap: 10px !important;
+    }
+
+    div[data-testid="stChatMessage"]:has(
+        [data-testid="chatAvatarIcon-user"]
+    ) {
+        flex-direction: row-reverse !important;
+    }
+
+    div[data-testid="stChatMessage"]:has(
+        [data-testid="chatAvatarIcon-user"]
+    ) > div:last-child {
+        background: #d1d1d1 !important;
+        color: #202123 !important;
+        border-radius: 18px !important;
+        padding: 10px 15px !important;
+        max-width: min(76%, 720px) !important;
+        margin-left: auto !important;
+        margin-right: 0 !important;
+    }
+
+    div[data-testid="stChatMessage"]:has(
+        [data-testid="chatAvatarIcon-assistant"]
+    ) > div:last-child {
+        background: #ffffff !important;
+        color: #202123 !important;
+        border-radius: 10px !important;
+        padding: 4px 12px 8px 12px !important;
+        max-width: min(84%, 800px) !important;
+        margin-right: auto !important;
+    }
+
+    div[data-testid="stChatMessage"] p {
+        line-height: 1.55 !important;
+        margin-top: 2px !important;
+        margin-bottom: 7px !important;
+    }
+
+    /* Compact Sources row. */
+    div[data-testid="stChatMessage"] [data-testid="stExpander"] {
+        max-width: 210px !important;
+        margin-top: 4px !important;
+        border: none !important;
+        background: transparent !important;
+    }
+
+    div[data-testid="stChatMessage"] [data-testid="stExpander"] summary {
+        padding: 2px 0 !important;
+        min-height: 22px !important;
+        color: #6b6b6b !important;
+        font-size: 11px !important;
+    }
+
+    /* Composer — wide enough, but not oversized. */
+    div[data-testid="stChatInput"] {
+        position: fixed !important;
+        left: calc(50% + 125px) !important;
+        transform: translateX(-50%) !important;
+        bottom: 18px !important;
+        width: min(700px, calc(100vw - 350px)) !important;
+        z-index: 1000 !important;
+    }
+
+    div[data-testid="stChatInput"] > div {
+        background: #ffffff !important;
+        border: 1px solid #d9d9e3 !important;
+        border-radius: 18px !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .07) !important;
+    }
+
+    /* Make ordinary buttons look understated. */
+    .stButton > button {
+        border-radius: 8px !important;
+        color: #202123 !important;
+    }
+
+    /* Mobile. */
+    @media (max-width: 900px) {
+        [data-testid="stMainBlockContainer"] {
+            max-width: 100% !important;
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+        }
+
+        div[data-testid="stChatInput"] {
+            left: 50% !important;
+            width: calc(100vw - 28px) !important;
+            bottom: 10px !important;
+        }
+
+        div[data-testid="stChatMessage"]:has(
+            [data-testid="chatAvatarIcon-user"]
+        ) > div:last-child,
+        div[data-testid="stChatMessage"]:has(
+            [data-testid="chatAvatarIcon-assistant"]
+        ) > div:last-child {
+            max-width: 90% !important;
+        }
+    }
+
+
+    /* Unique DocuMind AI brand icon */
+    .documind-logo {
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid #202123;
+        border-radius: 9px;
+        color: #202123;
+        font-size: 19px;
+        line-height: 1;
+        font-weight: 700;
+        transform: rotate(-4deg);
+        box-sizing: border-box;
+    }
+
+    .login-logo {
+        display: inline-block;
+        color: #202123;
+        font-size: 34px;
+        margin-right: 4px;
+    }
+
     </style>
     """,
     unsafe_allow_html=True,
@@ -906,7 +1139,7 @@ def current_user():
 def login_screen():
     st.markdown("""
         <div style="text-align:center;padding-top:120px;">
-            <h1>📚 DocuMind AI</h1>
+            <h1><span class="login-logo">✦</span> DocuMind AI</h1>
             <h3>AI-Powered Exam Preparation</h3>
             <p>Sign in with Google to save your chats and study progress.</p>
         </div>
@@ -1314,7 +1547,7 @@ def sidebar(user):
         st.markdown(
             """
             <div class="sidebar-brand">
-                <span>📚</span>
+                <span class="documind-logo">✦</span>
                 <strong>DocuMind AI</strong>
             </div>
             """,
@@ -1833,9 +2066,13 @@ def chat_tab(chat_id, user):
             unsafe_allow_html=True,
         )
 
-    # Existing conversation.
-    # Keep the conversation above the composer. The composer is rendered
-    # after the history so newly submitted messages never appear below it.
+    # -------------------------------------------------------------
+    # CHAT HISTORY
+    #
+    # This is the only place where saved questions/answers are
+    # rendered. Submitted messages are saved and then rerun, so they
+    # cannot be rendered both live and from the database.
+    # -------------------------------------------------------------
     st.markdown(
         '<div class="documind-chat-history">',
         unsafe_allow_html=True,
@@ -1849,10 +2086,7 @@ def chat_tab(chat_id, user):
     )
 
     # -------------------------------------------------------------
-    # ChatGPT-style input.
-    #
-    # The attachment button is built into st.chat_input by
-    # accept_file. This removes the need for a sidebar uploader.
+    # CHAT INPUT
     # -------------------------------------------------------------
     question_input = st.chat_input(
         "Message DocuMind AI...",
@@ -1890,21 +2124,6 @@ def chat_tab(chat_id, user):
                     chat_id,
                 )
 
-            # Show the uploaded files inside the conversation.
-            with st.chat_message("user"):
-
-                for attached_file in attached_files:
-
-                    st.markdown(
-                        f"📌 **{attached_file.name}**"
-                    )
-
-                if question:
-
-                    st.markdown(
-                        question
-                    )
-
             st.toast(
                 f"📌 {len(attached_files)} PDF(s) added to this chat."
             )
@@ -1922,7 +2141,6 @@ def chat_tab(chat_id, user):
     # -------------------------------------------------------------
     if not question:
 
-        # A file-only submission is valid.
         if attached_files:
 
             update_chat(
@@ -1930,10 +2148,14 @@ def chat_tab(chat_id, user):
                 user["user_id"],
             )
 
+            # Refresh the UI once. No transient file message is rendered,
+            # preventing it from appearing twice on the next rerun.
+            st.rerun()
+
         return
 
     # -------------------------------------------------------------
-    # SAVE QUESTION
+    # SAVE QUESTION ONCE
     # -------------------------------------------------------------
     save_message(
         chat_id,
@@ -1969,83 +2191,59 @@ def chat_tab(chat_id, user):
         )
 
     # -------------------------------------------------------------
-    # QUESTION
+    # GENERATE + SAVE ANSWER ONCE
     #
-    # If a PDF was attached, it has already been displayed above.
-    # Otherwise display the question normally.
+    # Do NOT render the answer here. display_chat() will render both
+    # the saved question and saved answer after st.rerun().
     # -------------------------------------------------------------
-    if not attached_files:
+    try:
 
-        with st.chat_message(
-            "user"
+        with st.spinner(
+            "Thinking..."
         ):
 
-            st.markdown(
-                question
-            )
-
-    # -------------------------------------------------------------
-    # ANSWER
-    # -------------------------------------------------------------
-    with st.chat_message(
-        "assistant"
-    ):
-
-        try:
-
-            with st.spinner(
-                "Thinking..."
-            ):
-
-                answer = answer_question(
-                    chat_id,
-                    question,
-                )
-
-            if answer == "NO_DOCUMENT":
-
-                answer = (
-                    "📄 Please attach and process "
-                    "a PDF before asking document questions."
-                )
-
-            elif answer == "ANSWER_NOT_FOUND":
-
-                answer = (
-                    "I couldn't find the answer "
-                    "in the uploaded documents.\n\n"
-                    "You can use the **General Knowledge** "
-                    "option below."
-                )
-
-                st.session_state.pending_fallback = (
-                    question
-                )
-
-            if answer not in ("NO_DOCUMENT", "ANSWER_NOT_FOUND"):
-                render_assistant_message(
-                    answer,
-                    message_key=f"live_{chat_id}_{uuid.uuid4().hex[:8]}",
-                )
-            else:
-                st.markdown(answer)
-
-            save_message(
+            answer = answer_question(
                 chat_id,
-                "assistant",
-                answer,
+                question,
             )
 
-            update_chat(
-                chat_id,
-                user["user_id"],
+        if answer == "NO_DOCUMENT":
+
+            answer = (
+                "📄 Please attach and process "
+                "a PDF before asking document questions."
             )
 
-        except Exception as e:
+        elif answer == "ANSWER_NOT_FOUND":
 
-            st.error(
-                f"Error: {e}"
+            answer = (
+                "I couldn't find the answer "
+                "in the uploaded documents.\n\n"
+                "You can use the **General Knowledge** "
+                "option below."
             )
+
+            st.session_state.pending_fallback = question
+
+        save_message(
+            chat_id,
+            "assistant",
+            answer,
+        )
+
+        update_chat(
+            chat_id,
+            user["user_id"],
+        )
+
+        # One rerun -> display_chat() renders each saved message once.
+        st.rerun()
+
+    except Exception as e:
+
+        st.error(
+            f"Error: {e}"
+        )
 
 
 # ----------------------------------------------------------------
@@ -2389,8 +2587,6 @@ def main():
         st.error("Unable to open this chat.")
         st.stop()
 
-    st.title(f"📚 {chat['title']}")
-
     # ---------------------------------------------------------
     # MAIN VIEW ROUTER
     # Sidebar study tools open their actual screens.
@@ -2421,7 +2617,7 @@ def main():
         return
 
     # Default Chat screen.
-    st.title(f"📚 {chat['title']}")
+    st.title(f"✦ {chat['title']}")
 
     display_chat(st.session_state.current_chat_id)
     chat_tab(
