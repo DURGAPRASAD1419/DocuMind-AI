@@ -124,11 +124,17 @@ It allows users to upload PDF documents, ask questions about their content, rece
                  ┌─────────────────┐
                  │ Answer + Sources│
                  └─────────────────┘
+<<<<<<< HEAD
 ```
 
 ## 📁 Project Structure
 
 ```text
+=======
+
+
+📁 Project Structure
+>>>>>>> 54c2eab0a656984900d49e7679284216b7b424ea
 DocuMind-AI/
 │
 ├── .streamlit/
@@ -350,10 +356,13 @@ For large-scale production deployment, the application can later be migrated to:
 
 **Repository:** https://github.com/DURGAPRASAD1419/DocuMind-AI
 
+<<<<<<< HEAD
 **Application:** AI-powered document Q&A and exam preparation platform
 
 DocuMind AI combines **Retrieval-Augmented Generation (RAG)** with AI-powered exam preparation tools to help users understand documents, ask questions, practice exams, revise using flashcards, and analyze their performance.
 
 ## 📄 License
 
+=======
+>>>>>>> 54c2eab0a656984900d49e7679284216b7b424ea
 This project is intended for educational and project demonstration purposes.
