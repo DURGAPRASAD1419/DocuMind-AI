@@ -124,7 +124,11 @@ It allows users to upload PDF documents, ask questions about their content, rece
                  ┌─────────────────┐
                  │ Answer + Sources│
                  └─────────────────┘
-📁 Project Structure
+```
+
+## 📁 Project Structure
+
+```text
 DocuMind-AI/
 │
 ├── .streamlit/
@@ -138,159 +142,218 @@ DocuMind-AI/
 ├── README.md
 ├── .gitignore
 └── venv/
+```
 
-venv/, .env, .streamlit/secrets.toml, and local application data should not be committed to GitHub.
+> `venv/`, `.env`, `.streamlit/secrets.toml`, and local application data should not be committed to GitHub.
 
-🚀 Local Setup
-1. Clone the repository
+## 🚀 Local Setup
+
+### 1. Clone the repository
+
+```bash
 git clone https://github.com/DURGAPRASAD1419/DocuMind-AI.git
 cd DocuMind-AI
-2. Create a virtual environment
+```
+
+### 2. Create a virtual environment
 
 Windows:
 
+```powershell
 python -m venv venv
-3. Activate the virtual environment
+```
+
+### 3. Activate the virtual environment
+
+```powershell
 .\venv\Scripts\Activate.ps1
-4. Install dependencies
+```
+
+### 4. Install dependencies
+
+```powershell
 python -m pip install -U pip
 python -m pip install -r requirements.txt
+```
 
 If the spaCy model is not installed, run:
 
+```powershell
 python -m spacy download en_core_web_sm
-5. Configure Gemini API
+```
 
-Create a .env file in the project root:
+### 5. Configure Gemini API
 
+Create a `.env` file in the project root:
+
+```text
 GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+```
 
-Replace YOUR_GEMINI_API_KEY with your actual Gemini API key.
+Replace `YOUR_GEMINI_API_KEY` with your actual Gemini API key.
 
-Never commit .env to GitHub.
+**Never commit `.env` to GitHub.**
 
-6. Configure Google Login
+### 6. Configure Google Login
 
 Create:
 
+```text
 .streamlit/secrets.toml
+```
 
 Use the following configuration:
 
+```toml
 [auth]
 redirect_uri = "http://localhost:8501/oauth2callback"
 cookie_secret = "YOUR_RANDOM_SECRET"
 client_id = "YOUR_GOOGLE_CLIENT_ID"
 client_secret = "YOUR_GOOGLE_CLIENT_SECRET"
 server_metadata_url = "https://accounts.google.com/.well-known/openid-configuration"
+```
 
 Replace the placeholder values with your Google OAuth credentials.
 
 In Google Cloud Console, add the following as an authorized redirect URI:
 
+```text
 http://localhost:8501/oauth2callback
-7. Run the application
+```
+
+### 7. Run the application
+
+```powershell
 python -m streamlit run app.py
+```
 
 The application will be available at:
 
+```text
 http://localhost:8501
-☁️ Deployment
+```
 
-DocuMind AI is deployed using Render.
+## ☁️ Deployment
 
-Render Configuration
+DocuMind AI is deployed using **Render**.
 
-Service Type:
+### Render Configuration
 
+**Service Type:**
+
+```text
 Web Service
+```
 
-Branch:
+**Branch:**
 
+```text
 main
+```
 
-Root Directory:
+**Root Directory:**
 
+```text
 Leave empty
+```
 
-Build Command:
+**Build Command:**
 
+```bash
 pip install -r requirements.txt
+```
 
-Start Command:
+**Start Command:**
 
+```bash
 streamlit run app.py --server.address 0.0.0.0 --server.port $PORT
-Production URL
+```
+
+### Production URL
+
+```text
 https://documind-ai-cogn.onrender.com
-Google OAuth Redirect URI
+```
+
+### Google OAuth Redirect URI
 
 For the deployed application, use:
 
+```text
 https://documind-ai-cogn.onrender.com/oauth2callback
+```
 
-Add this URL to the Authorized redirect URIs section of your Google OAuth client.
+Add this URL to the **Authorized redirect URIs** section of your Google OAuth client.
 
-Production Authentication
+### Production Authentication
 
 OAuth credentials and other sensitive information should be stored using Render's environment variables or secret files.
 
 Do not commit production credentials to GitHub.
 
-🔐 Environment Variables and Secrets
+## 🔐 Environment Variables and Secrets
 
 The following values should be kept private:
 
+```text
 GEMINI_API_KEY
 GOOGLE_CLIENT_ID
 GOOGLE_CLIENT_SECRET
 COOKIE_SECRET
+```
 
 Never put these values directly into the source code.
 
 Never commit:
 
+```text
 .env
 .streamlit/secrets.toml
+venv/
+```
 
 If a secret or API key is accidentally exposed, revoke and rotate it immediately.
 
-💾 Data Storage
+## 💾 Data Storage
 
 DocuMind AI currently uses:
 
-SQLite for chat history and application data
-FAISS for document vector indexes
-Local storage for application files and processed document data
+- **SQLite** for chat history and application data
+- **FAISS** for document vector indexes
+- **Local storage** for application files and processed document data
 
 Each chat can have its own FAISS index, allowing document-based conversations to remain separated.
 
 For large-scale production deployment, the application can later be migrated to:
 
-PostgreSQL
-Cloud/object storage
-Managed vector databases
-Persistent cloud storage
-🎯 Future Improvements
-Persistent cloud database
-Cloud storage for uploaded documents
-Managed vector database
-Conversation export
-PDF/document management improvements
-Additional AI study tools
-Advanced performance analytics
-Production-grade scaling
-Improved document processing
-More LLM provider support
-👨‍💻 Project Information
+- PostgreSQL
+- Cloud/object storage
+- Managed vector databases
+- Persistent cloud storage
 
-Project Name: DocuMind AI
+## 🎯 Future Improvements
 
-Repository: DURGAPRASAD1419/DocuMind-AI
+- Persistent cloud database
+- Cloud storage for uploaded documents
+- Managed vector database
+- Conversation export
+- PDF/document management improvements
+- Additional AI study tools
+- Advanced performance analytics
+- Production-grade scaling
+- Improved document processing
+- More LLM provider support
 
-Application: AI-powered document Q&A and exam preparation platform
+## 👨‍💻 Project Information
 
-DocuMind AI combines Retrieval-Augmented Generation (RAG) with AI-powered exam preparation tools to help users understand documents, ask questions, practice exams, revise using flashcards, and analyze their performance.
+**Project Name:** DocuMind AI
 
-📄 License
+**Repository:** https://github.com/DURGAPRASAD1419/DocuMind-AI
+
+**Application:** AI-powered document Q&A and exam preparation platform
+
+DocuMind AI combines **Retrieval-Augmented Generation (RAG)** with AI-powered exam preparation tools to help users understand documents, ask questions, practice exams, revise using flashcards, and analyze their performance.
+
+## 📄 License
 
 This project is intended for educational and project demonstration purposes.
