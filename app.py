@@ -2024,29 +2024,23 @@ def display_chat(chat_id):
 
     messages = get_messages(chat_id)
 
-    # Prevent old duplicate records from appearing twice in the UI.
-    # This is especially useful for chats created with an older version
-    # of the app that could save the first messages more than once.
-    displayed_messages = []
-    seen_exact = set()
+    # Hide only consecutive duplicate records. This fixes duplicate
+    # question/answer rows created by older versions without hiding a
+    # legitimate repeated question or answer later in the conversation.
+    previous_key = None
 
     for index, m in enumerate(messages):
 
-        role = m.get("role", "")
-        content = (m.get("content", "") or "").strip()
+        # sqlite3.Row supports [] access, not .get().
+        role = m["role"]
+        content = (m["content"] or "").strip()
 
-        # Skip an exact duplicate message already displayed.
-        # The key includes role + content, so the same text from different
-        # roles is still displayed correctly.
         duplicate_key = (role, content)
 
-        if duplicate_key in seen_exact:
+        if duplicate_key == previous_key:
             continue
 
-        seen_exact.add(duplicate_key)
-        displayed_messages.append((index, m))
-
-    for index, m in displayed_messages:
+        previous_key = duplicate_key
 
         with st.chat_message(
             m["role"]
@@ -2247,26 +2241,14 @@ def chat_tab(chat_id, user):
 
             st.session_state.pending_fallback = question
 
-        # Avoid inserting the same answer twice if the same submission
-        # reaches this block more than once in a single run.
-        latest_messages = get_messages(chat_id)
-        latest_assistant = next(
-            (
-                m for m in reversed(latest_messages)
-                if m.get("role") == "assistant"
-            ),
-            None,
+        # The question was just saved above, so the last database record
+        # is the current user message. Save this assistant response once.
+        # sqlite3.Row uses [] access rather than .get().
+        save_message(
+            chat_id,
+            "assistant",
+            answer,
         )
-
-        if not latest_assistant or (
-            (latest_assistant.get("content") or "").strip()
-            != answer.strip()
-        ):
-            save_message(
-                chat_id,
-                "assistant",
-                answer,
-            )
 
         update_chat(
             chat_id,
