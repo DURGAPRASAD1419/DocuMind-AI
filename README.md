@@ -364,5 +364,5 @@ DocuMind AI combines **Retrieval-Augmented Generation (RAG)** with AI-powered ex
 ## 📄 License
 
 =======
->>>>>>> 54c2eab0a656984900d49e7679284216b7b424ea
+
 This project is intended for educational and project demonstration purposes.
